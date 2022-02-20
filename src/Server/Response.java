@@ -32,13 +32,20 @@ public class Response {
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         String path = File.separator + "root" + File.separator + "java" + File.separator
                 + "CS_demo1_tmp" + socket.getInetAddress().toString() + "_" + in.readUTF();
+//        String path = "G:" + File.separator + socket.getInetAddress().toString() + "_" + in.readUTF();
         File file = new File(path);
-        file.mkdirs();
+        File fileParent = file.getParentFile();
+        if(!fileParent.exists()) {
+            fileParent.mkdirs();
+        }
+        if(!file.exists()) {
+            file.createNewFile();
+        }
         FileOutputStream fileOutputStream = new FileOutputStream(file);
         do {
             int b = in.read();
-            if(b == -1) break;
+            if (b == -1) break;
             fileOutputStream.write(b);
-        }while(true);
+        } while (true);
     }
 }

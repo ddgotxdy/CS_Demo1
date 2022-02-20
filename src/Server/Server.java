@@ -10,6 +10,11 @@ public class Server {
     private ServerSocket serverSocket;
     private ExecutorService executorService = Executors.newFixedThreadPool(10);
 
+    public static void main(String args[]) throws Exception {
+        Server server = new Server(6060);
+        server.run();
+    }
+
     Server(int port) throws Exception {
         serverSocket = new ServerSocket(port);
     }
@@ -23,11 +28,6 @@ public class Server {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static void main(String args[]) throws Exception {
-        Server server = new Server(6060);
-        server.run();
     }
 
 }
