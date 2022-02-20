@@ -8,11 +8,16 @@ import java.util.Scanner;
 public class Client extends Thread{
     private static int port = 6060;
     private static Scanner scanner = new Scanner(System.in);
+    // 访问的ip地址
+    private static String Servername = "182.92.216.59";
 
     public static void main(String args[]) throws Exception {
         try {
-            InetAddress inetAddress = InetAddress.getLocalHost();
-            Socket client = new Socket(inetAddress.getHostName(),port);
+//            本地测试
+//            InetAddress inetAddress = InetAddress.getLocalHost();
+//            Socket client = new Socket(inetAddress.getHostName(),port);
+//            远程服务器测试，需要配置内网穿透
+            Socket client = new Socket(Servername,port);
             DataInputStream in = new DataInputStream(client.getInputStream());
             DataOutputStream out = new DataOutputStream(client.getOutputStream());
             File file = null;
