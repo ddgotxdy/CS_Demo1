@@ -2,6 +2,8 @@ package Server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.Socket;
 
 public class Response {
@@ -18,20 +20,25 @@ public class Response {
         DataInputStream in = new DataInputStream(socket.getInputStream());
         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
         String query = in.readUTF();
-        if(query.equals("submit")) submit(in, out);
-        else if(query.equals("connection")) connection(in, out);
+        if(query.equals("submit")) submit(socket);
         else {
             out.writeUTF("Error Comand");
         }
         socket.close();
     }
 
-    private void submit(DataInputStream in, DataOutputStream out) throws Exception {
-        out.writeUTF("submit");
+    private void submit(Socket socket) throws Exception {
+        DataInputStream in = new DataInputStream(socket.getInputStream());
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        String path = File.separator + "root" + File.separator + "java" + File.separator
+                + "CS_demo1_tmp" + socket.getInetAddress().toString() + "_" + in.readUTF();
+        File file = new File(path);
+        file.mkdirs();
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        do {
+            int b = in.read();
+            if(b == -1) break;
+            fileOutputStream.write(b);
+        }while(true);
     }
-
-    private void connection(DataInputStream in, DataOutputStream out) throws Exception {
-        out.writeUTF("connection");
-    }
-
 }

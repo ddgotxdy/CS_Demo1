@@ -4,7 +4,6 @@ import java.net.Socket;
 
 public class Interaction implements Runnable {
     private Socket socket;
-    private Thread t;
 
     public Interaction(Socket socket) {
         this.socket = socket;
@@ -19,12 +18,4 @@ public class Interaction implements Runnable {
             e.printStackTrace();
         }
     }
-
-    public void start() {
-        if(t == null) {
-            t = new Thread(this);
-            t.start();
-        }
-    }
-
 }
