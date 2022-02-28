@@ -70,12 +70,12 @@ public class Response {
             }
             // 向文件里面输入内容
             fileOutputStream = new FileOutputStream(file);
-            int b;
+            char b;
             do {
-                b = in.readInt();
+                b = in.readChar();
                 // 只要低8位
-                if(b < 256) fileOutputStream.write(b & 0xff);
-            } while(b != -1);
+                if((int) b < 256) fileOutputStream.write(b & 0xff);
+            } while((int) b < 256);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

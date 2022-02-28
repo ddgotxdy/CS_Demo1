@@ -39,8 +39,8 @@ public class Client extends Thread{
                     int b;
                     do {
                         b = fileInputStream.read();
-                        // 为了处理到文件末尾，直接传int
-                        out.writeInt(b);
+                        // 为了处理到文件末尾，直接传char
+                        out.writeChar((char) (b & 0xffff));
                     }while(b != -1);
                     System.out.println("传输成功");
                 } else if(!path.equals("exit")) {
